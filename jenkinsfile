@@ -1,0 +1,50 @@
+// Define variables
+def appName = "my-application"
+def repoUrl = "https://github.com/my-organization/my-application.git"
+def testCommand = "npm test"
+def buildCommand = "npm run build"
+def deployEnv = "staging"
+def deployCommand = "npm run deploy"
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from Git repository
+                git url: repoUrl
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run tests
+                sh testCommand
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Build the application
+                sh buildCommand
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                // Deploy only on the specified environment
+                expression { deployEnv == env.DEPLOY_ENV }
+            }
+            steps {
+                // Deploy the application
+                sh deployCommand
+            }
+        }
+    }
+
+    // Define environment variable for deployment environment
+    environment {
+        DEPLOY_ENV = deployEnv
+    }
+}
