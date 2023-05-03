@@ -1,10 +1,10 @@
 // Define variables
 def appName = "my-application"
 def repoUrl = "https://github.com/my-organization/my-application.git"
-def testCommand = "npm test"
-def buildCommand = "npm run build"
+def testCommand = "echo test"
+def buildCommand = "echo run build"
 def deployEnv = "staging"
-def deployCommand = "npm run deploy"
+def deployCommand = "echo run deploy"
 
 pipeline {
     agent any
@@ -45,6 +45,6 @@ pipeline {
 
     // Define environment variable for deployment environment
     environment {
-        DEPLOY_ENV = deployEnv
+        DEPLOY_ENV = 'deployEnv'
     }
 }
