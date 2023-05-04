@@ -1,5 +1,3 @@
 def call() {
-  
- sh "echo " Build stage here" "
-  
+    sh "echo Hello "
 }
